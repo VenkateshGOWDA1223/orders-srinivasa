@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1, h3 {
+            text-align: center;
+            color: #5D5C61;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="number"],
+        button {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .invoice-logo {
+            width: 20px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #items .item {
+            margin-bottom: 10px;
+        }
+
+        /* Media query for print */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #invoice, #invoice * {
+                visibility: visible;
+            }
+            #invoice {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+            .print-button {
+                display: none; /* Hide print button */
+            }
+        }
+    </style>
+</head>
+<body>
+    <form id="invoiceInputForm">
+        <img id="companyLogo" src="imageslogo/ORDER FORM.jpg" alt="Company Logo" style="display:none;">
+        <h1><strong>Srinivasa Pharmaceuticals</strong></h1>
+        <h3>SHOP DETAILS</h3>
+        <label for="customerName">Shop Name:</label><br>
+        <input type="text" id="customerName" name="customerName"><br>
+        <label for="customerAddress">Shop Address:</label><br>
+        <input type="text" id="customerAddress" name="customerAddress"><br>
+        <h3>ORDER DETAILS</h3>
+        <div id="items">
+            <div class="item">
+                <input type="text" placeholder="Item Name" class="itemName">
+                <input type="number" placeholder="Quantity" class="itemQuantity">
+                <button type="button" onclick="removeItem(this)">Remove</button>
+            </div>
+        </div>
+        <button type="button" onclick="addItem()">Add Item</button><br>
+        <input type="button" value="Generate Invoice" onclick="generateInvoice()">
+    </form>
+
+    <div id="invoice" style="display:none;"></div>
+
+    <script>
+        function addItem() {
+            var itemsDiv = document.getElementById("items");
+            var newItemDiv = document.createElement("div");
+            newItemDiv.classList.add("item");
+            newItemDiv.innerHTML = `
+                <input type="text" placeholder="Item Name" class="itemName">
+                <input type="number" placeholder="Quantity" class="itemQuantity">
+                <button type="button" onclick="removeItem(this)">Remove</button>
+            `;
+            itemsDiv.appendChild(newItemDiv);
+        }
+
+        function removeItem(button) {
+            button.parentElement.remove();
+        }
+
+        function generateInvoice() {
+            var customerName = document.getElementById('customerName').value;
+            var customerAddress = document.getElementById('customerAddress').value;
+            var items = document.querySelectorAll(".item");
+            var logoSrc = document.getElementById('companyLogo').src;
+            var invoiceItemsHtml = "";
+
+            items.forEach(function(item) {
+                var name = item.querySelector(".itemName").value;
+                var quantity = item.querySelector(".itemQuantity").value;
+                invoiceItemsHtml += `<p>${name} - Quantity: ${quantity}</p>`;
+            });
+
+            var invoiceHtml = `
+                <img src="${logoSrc}" alt="Company Logo" class="invoice-logo">
+                <h1>Order Form</h1>
+                <p><strong>Shop Name:</strong> ${customerName}</p>
+                <p><strong>Shop Address:</strong> ${customerAddress}</p>
+                ${invoiceItemsHtml}
+                <button class="print-button" onclick="printInvoice()">Print Invoice</button>
+            `;
+
+            document.getElementById('invoice').innerHTML = invoiceHtml;
+            document.getElementById('invoice').style.display = 'block';
+        }
+
+        function printInvoice() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
