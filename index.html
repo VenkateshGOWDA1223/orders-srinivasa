@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+   
+    <form id="invoiceInputForm">
+        <!-- Hidden in form, shown in invoice -->
+        <img id="companyLogo" src="imageslogo\ORDER FORM.jpg" alt="Company Logo" style="display:none;">
+      
+        <!-- Company Details -->
+        <h1><strong>Srinivasa Pharmaceuticals</strong></h1>
+      <h3>SHOP DETAILS</h3>
+        <!-- Customer Details -->
+        <label for="customerName">Shop Name:</label><br>
+        <input type="text" id="customerName" name="customerName"><br>
+        <label for="customerAddress">Shop Address:</label><br>
+        <input type="text" id="customerAddress" name="customerAddress"><br>
+<h3>ORDER DETAILS</h3>
+        <!-- Items Details -->
+        <h3>Items</h3>
+        <div id="items">
+            <div class="item">
+                <input type="text" placeholder="Item Name" class="itemName">
+                <input type="number" placeholder="Quantity" class="itemQuantity">
+                <button type="button" onclick="removeItem(this)">Remove</button>
+            </div>
+        </div>
+        <button type="button" onclick="addItem()">Add Item</button><br>
+
+        <!-- Generate Invoice Button -->
+        <input type="button" value="Generate Invoice" onclick="generateInvoice()">
+    </form>
+
+    <!-- Invoice Display -->
+    <div id="invoice" style="display:none;">
+        <!-- The invoice will be generated here -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
