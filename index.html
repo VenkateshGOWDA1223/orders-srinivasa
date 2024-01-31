@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Orders Generator</title>
+    <title>Srinivasa Pharmaceuticals Orders Form Generator</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -48,7 +48,7 @@
             background-color: #45a049;
         }
         .invoice-logo {
-            width: 330px;
+            width: 500px;
             height: auto;
             display: block;
             margin: 0 auto;
@@ -136,7 +136,7 @@
                 <p><strong>Shop Name:</strong> ${customerName}</p>
                 <p><strong>Shop Address:</strong> ${customerAddress}</p>
                 ${invoiceItemsHtml}
-                <button class="print-button" onclick="printInvoice()">Print Invoice</button>
+                <button class="print-button" onclick="printInvoice()">Save Order</button>
             `;
 
             document.getElementById('invoice').innerHTML = invoiceHtml;
